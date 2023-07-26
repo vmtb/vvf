@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:testproject/controllers/auth_controller.dart';
-import 'package:testproject/models/task.dart';
+import 'package:vvf/controllers/auth_controller.dart';
+import 'package:vvf/models/task.dart';
 
 import '../utils/providers.dart';
 

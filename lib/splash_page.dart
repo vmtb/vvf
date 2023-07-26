@@ -1,15 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:testproject/components/app_image.dart';
-import 'package:testproject/components/app_text.dart';
-import 'package:testproject/home_page.dart';
-import 'package:testproject/pages/auth/login_page.dart';
-import 'package:testproject/utils/app_func.dart';
-import 'package:testproject/utils/app_pref.dart';
-import 'package:testproject/utils/providers.dart';
+import 'package:vvf/components/app_image.dart';
+import 'package:vvf/components/app_text.dart';
+import 'package:vvf/home_page.dart';
+import 'package:vvf/pages/auth/login_page.dart';
+import 'package:vvf/utils/app_func.dart';
+import 'package:vvf/utils/providers.dart';
 
 
-//ref.read()
+// ref.read()
 final nbTimes = Provider<int>((ref) => 50);
 final darkModeEnabled = StateProvider<bool>((ref) => false);
 
@@ -31,6 +31,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SizedBox(
         width : getSize(context) . width,
         height: getSize(context) . height,
@@ -39,7 +40,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
             Center(
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(15),
-                  child: const AppImage(url: "assets/img/logo_def.jpg", width: 250, height: 250,)),
+                  child: const AppImage(url: "assets/img/logo.png", width: 250, height: 250,)),
             ),
 
             Positioned(
@@ -48,9 +49,9 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                 right: 0,
                 child: Column(
                   children: const [
-                    AppText("Votre assistant parfait..", weight: FontWeight.bold,),
+                    AppText("Votre indépendance financière est main...", weight: FontWeight.bold,),
                     SizedBox(height: 20,),
-                    CircularProgressIndicator(),
+                    CupertinoActivityIndicator(),
                   ],
                 ))
           ],
@@ -68,12 +69,12 @@ class _SplashPageState extends ConsumerState<SplashPage> {
       // if(user...is..femme)
       // ref.read(firebaseMessaging).subscribeToTopic("all_femmes");
 
-      if(ref.read(mAuth).currentUser==null){
-        navigateToWidget(context, const LoginPage());
-      } else {
-        log(ref.read(mAuth).currentUser!.uid);
-        navigateToWidget(context, const HomePage(), back: false);
-      }
+      // if(ref.read(mAuth).currentUser==null){
+      //   navigateToWidget(context, const LoginPage());
+      // } else {
+      //   log(ref.read(mAuth).currentUser!.uid);
+      //   navigateToWidget(context, const HomePage(), back: false);
+      // }
     });
   }
 }

@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:testproject/splash_page.dart';
-import 'package:testproject/utils/app_pref.dart';
+import 'package:vvf/splash_page.dart';
+import 'package:vvf/utils/app_const.dart';
+import 'package:vvf/utils/app_pref.dart';
+import 'package:vvf/utils/app_styles.dart';
 
 import 'utils/config.dart';
 
@@ -32,7 +34,7 @@ class MyApp extends ConsumerWidget {
       title: 'Test Project',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.amber,
+        primarySwatch: customPrimaryColor,
       ),
       home: SplashPage(),
     );

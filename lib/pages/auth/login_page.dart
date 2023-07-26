@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_validator/form_validator.dart';
-import 'package:testproject/components/app_button.dart';
-import 'package:testproject/components/app_input.dart';
-import 'package:testproject/components/app_text.dart';
-import 'package:testproject/pages/auth/register_page.dart';
-import 'package:testproject/utils/app_func.dart';
+import 'package:vvf/components/app_button.dart';
+import 'package:vvf/components/app_input.dart';
+import 'package:vvf/components/app_text.dart';
+import 'package:vvf/pages/auth/register_page.dart';
+import 'package:vvf/utils/app_func.dart';
 
 import '../../components/app_image.dart';
 import '../../home_page.dart';
