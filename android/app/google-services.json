@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "439650199253",
+    "project_id": "vv-finance",
+    "storage_bucket": "vv-finance.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:439650199253:android:c4d2e2a57231b82840e45c",
+        "android_client_info": {
+          "package_name": "com.pirc.vvf"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "439650199253-o4fpspr477gghog6emb0n4ce5m71o6u0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pirc.vvf",
+            "certificate_hash": "2cf67d91a1aed081462ffbf893baf5555862e199"
+          }
+        },
+        {
+          "client_id": "439650199253-5g08c27jd9d7htiaj019k4q291381ih0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKhvtUB8PVQuz4wrthP_sWywvBkHEBVSM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "439650199253-5g08c27jd9d7htiaj019k4q291381ih0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
