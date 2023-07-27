@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vvf/components/app_image.dart';
 import 'package:vvf/components/app_text.dart';
+import 'package:vvf/controllers/user_controller.dart';
 import 'package:vvf/home_page.dart';
 import 'package:vvf/pages/auth/login_page.dart';
 import 'package:vvf/utils/app_func.dart';
@@ -49,7 +50,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                 right: 0,
                 child: Column(
                   children: const [
-                    AppText("Votre indépendance financière est main...", weight: FontWeight.bold,),
+                    AppText("Votre indépendance financière en main...", weight: FontWeight.bold,),
                     SizedBox(height: 20,),
                     CupertinoActivityIndicator(),
                   ],
@@ -61,20 +62,19 @@ class _SplashPageState extends ConsumerState<SplashPage> {
   }
 
   void setupTimer() {
-    Future.delayed(const Duration(seconds: 4), () async {
+    Future.delayed(const Duration(milliseconds: 500), () async {
       //  bool homeP = PreferenceHelper.getBool("home");
       //
-      ref.read(firebaseMessaging).subscribeToTopic("all_users");
       // String? token = await ref.read(firebaseMessaging).getToken();
       // if(user...is..femme)
       // ref.read(firebaseMessaging).subscribeToTopic("all_femmes");
 
-      // if(ref.read(mAuth).currentUser==null){
-      //   navigateToWidget(context, const LoginPage());
-      // } else {
-      //   log(ref.read(mAuth).currentUser!.uid);
-      //   navigateToWidget(context, const HomePage(), back: false);
-      // }
+      if(ref.read(mAuth).currentUser==null){
+        navigateToWidget(context, const LoginPage());
+      } else {
+        await ref.read(userController).setupUser();
+        navigateToWidget(context, const HomePage(), back: false);
+      }
     });
   }
 }

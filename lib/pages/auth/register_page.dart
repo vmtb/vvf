@@ -19,6 +19,7 @@ class RegisterPage extends ConsumerStatefulWidget {
 }
 
 class _RegisterPageState extends ConsumerState<RegisterPage> {
+  final pseudoController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final cpasswordController = TextEditingController();
@@ -42,33 +43,33 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 AppImage(
-                  url: "assets/img/login.png",
+                  url: "assets/img/logo.png",
                   width: getSize(context).width / 2,
-                ),
-                const AppText(
-                  "Welcome here",
-                  size: 26,
-                  weight: FontWeight.bold,
-                  isNormal: false,
-                ),
-                const AppText(
-                  "Create your account to login in",
-                  isNormal: false,
                 ),
                 const SpacerHeight(
                   height: 30,
                 ),
-                SimpleFormField(
+
+                SimpleFilledFormField(
+                  controller: pseudoController,
+                  validation: ValidationBuilder(),
+                  inputType: TextInputType.name,
+                  radius: 10,
+                  hintText: "Votre surnom",),
+                const SpacerHeight(),
+                SimpleFilledFormField(
                   controller: emailController,
                   validation: ValidationBuilder().email(),
                   inputType: TextInputType.emailAddress,
-                  radius: 30,
-                  hintText: "Email",
-                ),
-                SpacerHeight(),
-                SimpleFormField(
+                  radius: 10,
+                  hintText: "Email",),
+                const SpacerHeight(),
+
+                SimpleFilledFormField(
                   controller: passwordController,
                   validation: ValidationBuilder(),
+                  inputType: TextInputType.emailAddress,
+                  radius: 10,
                   obscure: hidePassword,
                   suffixI: IconButton(
                       onPressed: () {
@@ -79,11 +80,10 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                       icon: hidePassword
                           ? const Icon(Icons.remove_red_eye)
                           : const Icon(Icons.password_outlined)),
-                  radius: 30,
-                  hintText: "Mot de passe",
-                ),
-                const SpacerHeight(),
-                SimpleFormField(
+                  hintText: "Mot de passe",),
+                SpacerHeight(),
+
+                SimpleFilledFormField(
                   controller: cpasswordController,
                   validation: ValidationBuilder().add((value) {
                     if (value!.trim() != passwordController.text.trim()) {
@@ -91,6 +91,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                     }
                     return null;
                   }),
+                  radius: 10,
                   obscure: hidePassword,
                   suffixI: IconButton(
                       onPressed: () {
@@ -101,9 +102,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                       icon: hidePassword
                           ? const Icon(Icons.remove_red_eye)
                           : const Icon(Icons.password_outlined)),
-                  radius: 30,
-                  hintText: "Confirmer le mot de passe",
-                ),
+                  hintText: "Confirmer le Mot de passe",),
                 const SpacerHeight(
                   height: 30,
                 ),
@@ -114,7 +113,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                       setState(() {
                         isLoading = true;
                       });
-                      String error = await  ref.read(authController).register(emailController.text.trim(), passwordController.text.trim());
+                      String error = await  ref.read(authController).register(emailController.text.trim(), passwordController.text.trim(), pseudoController.text.trim());
                       setState(() {
                         isLoading = false;
                       });

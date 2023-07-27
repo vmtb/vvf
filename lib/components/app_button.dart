@@ -21,7 +21,7 @@ class AppButtonRound extends StatelessWidget {
       this.textSize = 18,
       this.textColor = Colors.white,
       this.backgroundColor = Colors.black,
-      this.radius = 25,
+      this.radius = 12,
       this.width,
       this.prefix,
       required this.onTap,

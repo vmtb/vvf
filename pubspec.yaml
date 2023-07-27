@@ -20,6 +20,7 @@ dependencies:
   cloud_firestore:
   firebase_storage:
   firebase_messaging:
+  google_sign_in:
 
   flutter_riverpod:
 
