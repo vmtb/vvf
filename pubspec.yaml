@@ -34,6 +34,8 @@ dependencies:
   intl:
 
   fl_chart:
+  flutter_colorpicker:
+  flutter_iconpicker_plus:
 
 dev_dependencies:
   flutter_test:
