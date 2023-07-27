@@ -158,7 +158,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                 width: 30,
                                 height: 30,
                                 color: Colors.white,
-                              ),
+                          ),
                       ),
                     ),
                   ],

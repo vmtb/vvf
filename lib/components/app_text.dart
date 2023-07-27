@@ -9,6 +9,7 @@ class AppText extends StatelessWidget {
   final TextAlign align;
   final int? maxLines;
   final bool isNormal;
+  final TextOverflow? overflow;
   final TextDecoration? decoration;
 
   const AppText(
@@ -21,6 +22,7 @@ class AppText extends StatelessWidget {
     this.isNormal = true,
     this.maxLines,
     this.decoration,
+        this.overflow
   });
 
   // condition?re_if_true:res_if_false
@@ -35,6 +37,7 @@ class AppText extends StatelessWidget {
               color: color,
               fontSize: size,
               fontWeight: weight,
+              overflow: overflow,
               decoration: decoration)
           : GoogleFonts.poppins(
               color: color,

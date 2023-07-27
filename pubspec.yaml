@@ -33,6 +33,8 @@ dependencies:
   flutter_local_notifications: 9.8.0
   intl:
 
+  fl_chart:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
