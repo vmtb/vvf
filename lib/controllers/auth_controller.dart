@@ -8,6 +8,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:vvf/models/user_model.dart';
 import 'package:vvf/utils/providers.dart';
 
+import 'devise_controller.dart';
+
 final getUserId = StateProvider((ref) => ref.read(mAuth).currentUser!.uid);
 
 class AuthController {
@@ -25,10 +27,11 @@ class AuthController {
       UserModel user = UserModel(firstname: pseudo, lastname: "", email: email,
           createdAt: DateTime.now().millisecondsSinceEpoch,
           userId: ref.read(mAuth).currentUser!.uid,
+          deviseId: ref.read(mainDevise).key,
           fcm: await getFcm(),
       );
       await ref.read(userController).saveUser(user);
-      await ref.read(userController).setupUser();
+      setupRegisterUserInfo();
     } catch (e) {
       print(e);
       error = e.toString();
@@ -115,10 +118,20 @@ class AuthController {
       user.email = email;
     }
     user.fcm = await getFcm();
+    if(user.userId.isEmpty){
+      user.deviseId =  ref.read(mainDevise).key;
+      setupRegisterUserInfo();
+    }
     user.userId = ref.read(mAuth).currentUser!.uid;
     await ref.read(userController).updateUser(user);
     await ref.read(userController).setupUser();
 
+  }
+
+  Future<void> setupRegisterUserInfo() async {
+    await ref.read(userController).setupUser();
+    await ref.read(catController).setupCategory(ref.read(mAuth).currentUser!.uid);
+    String caisseId= await ref.read(caisseController).setupCaisse(ref.read(mAuth).currentUser!.uid);
   }
 
 }

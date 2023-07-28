@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vvf/components/app_image.dart';
 import 'package:vvf/components/app_text.dart';
+import 'package:vvf/pages/caisses/home_caisse.dart';
 import 'package:vvf/pages/categories/home_category.dart';
+import 'package:vvf/pages/setting/home_settings.dart';
 import 'package:vvf/utils/app_const.dart';
 import 'package:vvf/utils/app_func.dart';
 
@@ -31,10 +33,10 @@ class _HomePageState extends ConsumerState<HomePage> with SingleTickerProviderSt
     double hCard = 0.55 * getSize(context).height;
 
     var menus = [
-      ["salary.png", "Caisses", AppColor.caisseColor, Container()],
+      ["salary.png", "Caisses", AppColor.caisseColor, HomeCaisse()],
       ["planning.png", "Projets", AppColor.projecColor, Container()],
       ["categories.png", "Catégories", AppColor.catgColor, HomeCategory()],
-      ["setting.png", "Paramètres", AppColor.settingColor, Container()],
+      ["setting.png", "Paramètres", AppColor.settingColor, HomeSetting()],
     ];
 
     return Scaffold(

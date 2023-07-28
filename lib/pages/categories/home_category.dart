@@ -105,7 +105,7 @@ class _HomeCategoryState extends ConsumerState<HomeCategory>
             //Categories List
             Expanded(
                 child: Container(
-              margin: const EdgeInsets.all(8),
+              margin: const EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),

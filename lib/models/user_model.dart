@@ -5,6 +5,7 @@ class UserModel{
   String fcm;
   int createdAt;
   String userId;
+  String deviseId;
 
 //<editor-fold desc="Data Methods">
 
@@ -15,6 +16,7 @@ class UserModel{
     required this.fcm,
     required this.createdAt,
     required this.userId,
+    required this.deviseId,
   });
 
   @override
@@ -27,7 +29,8 @@ class UserModel{
           email == other.email &&
           fcm == other.fcm &&
           createdAt == other.createdAt &&
-          userId == other.userId);
+          userId == other.userId &&
+          deviseId == other.deviseId);
 
   @override
   int get hashCode =>
@@ -36,7 +39,8 @@ class UserModel{
       email.hashCode ^
       fcm.hashCode ^
       createdAt.hashCode ^
-      userId.hashCode;
+      userId.hashCode ^
+      deviseId.hashCode;
 
   @override
   String toString() {
@@ -47,6 +51,7 @@ class UserModel{
         ' fcm: $fcm,' +
         ' createdAt: $createdAt,' +
         ' userId: $userId,' +
+        ' deviseId: $deviseId,' +
         '}';
   }
 
@@ -57,6 +62,7 @@ class UserModel{
     String? fcm,
     int? createdAt,
     String? userId,
+    String? deviseId,
   }) {
     return UserModel(
       firstname: firstname ?? this.firstname,
@@ -65,6 +71,7 @@ class UserModel{
       fcm: fcm ?? this.fcm,
       createdAt: createdAt ?? this.createdAt,
       userId: userId ?? this.userId,
+      deviseId: deviseId ?? this.deviseId,
     );
   }
 
@@ -76,6 +83,7 @@ class UserModel{
       'fcm': this.fcm,
       'createdAt': this.createdAt,
       'userId': this.userId,
+      'deviseId': this.deviseId,
     };
   }
 
@@ -87,12 +95,12 @@ class UserModel{
       fcm: map['fcm'] as String,
       createdAt: map['createdAt'] as int,
       userId: map['userId'] as String,
+      deviseId: map['deviseId']??"",
     );
   }
 
-  static initial() {
-    return UserModel(firstname: "", lastname: "", email: "", fcm: "", createdAt: DateTime.now().millisecondsSinceEpoch, userId: "");
-  }
-
 //</editor-fold>
+  static initial() {
+    return UserModel(firstname: "", lastname: "", email: "", fcm: "", createdAt: DateTime.now().millisecondsSinceEpoch, userId: "", deviseId: '');
+  }
 }

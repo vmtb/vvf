@@ -5,6 +5,7 @@ import 'package:vvf/components/app_image.dart';
 import 'package:vvf/components/app_text.dart';
 import 'package:vvf/controllers/user_controller.dart';
 import 'package:vvf/home_page.dart';
+import 'package:vvf/models/devise_model.dart';
 import 'package:vvf/pages/auth/login_page.dart';
 import 'package:vvf/utils/app_func.dart';
 import 'package:vvf/utils/providers.dart';
@@ -69,6 +70,8 @@ class _SplashPageState extends ConsumerState<SplashPage> {
       // if(user...is..femme)
       // ref.read(firebaseMessaging).subscribeToTopic("all_femmes");
 
+      await ref.read(deviseController).setupDevise();
+
       if(ref.read(mAuth).currentUser==null){
         navigateToWidget(context, const LoginPage());
       } else {
@@ -76,6 +79,16 @@ class _SplashPageState extends ConsumerState<SplashPage> {
         navigateToWidget(context, const HomePage(), back: false);
       }
     });
+  }
+
+  void setupDevises() {
+    Devise d = Devise(name: "Franc CFA", symbol: "XOF", rate: 0.0015, type: "", key: "");
+    Devise d2 = Devise(name: "Euro", symbol: "€", rate: 1, type: "main", key: "");
+    Devise d3 = Devise(name: "Dollar", symbol: "\$", rate: 0.91, type: "", key: "");
+
+    ref.read(deviseController).addDevise(d);
+    ref.read(deviseController).addDevise(d2);
+    ref.read(deviseController).addDevise(d3);
   }
 }
 
