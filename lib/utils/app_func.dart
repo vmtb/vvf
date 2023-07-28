@@ -91,7 +91,7 @@ void showConfirm(BuildContext context, String text, confirmTap,
 
 void showSnackbar(BuildContext context, String message) {
   final snackbar = SnackBar(
-    content: AppText(message, color: Colors.white, size: 20,),
+    content: AppText(message, color: Colors.white, size: 16),
   );
   ScaffoldMessenger.of(context).showSnackBar(snackbar);
 }

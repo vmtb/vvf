@@ -137,7 +137,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                       navigateToWidget(context, const LoginPage(), back: false);
                     },
                     child:
-                        AppText("Vous avez  déjà un compte? Connectez-vous")),
+                        AppText("Vous avez  déjà un compte? Connectez-vous", align: TextAlign.center,)),
               ],
             ),
           ),

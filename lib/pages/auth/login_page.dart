@@ -172,7 +172,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                           back: false);
                     },
                     child: const AppText(
-                        "Vous n'avez pas un compte? Créer un compte")),
+                        "Vous n'avez pas un compte? Créer un compte", align: TextAlign.center,)),
               ],
             ),
           ),
