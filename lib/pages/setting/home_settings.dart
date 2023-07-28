@@ -48,7 +48,7 @@ class _HomeSettingState extends ConsumerState<HomeSetting> {
               ListTile(
                 leading: const Icon(Icons.monetization_on),
                 title: const AppText("Votre devise"),
-                subtitle: AppText("${ref.watch(userDevise).name} (${ref.watch(userDevise).symbol}) -- Changer"),
+                subtitle: AppText("${ref.read(userDevise).name} (${ref.watch(userDevise).symbol}) -- Changer"),
                 onTap: () {
                   showChangeDevisesDialog();
                 },
