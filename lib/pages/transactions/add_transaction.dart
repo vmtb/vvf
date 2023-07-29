@@ -195,6 +195,7 @@ class _AddTransactionState extends ConsumerState<AddTransaction> {
                     caisseId: widget.caisse.key,
                     time: datew.millisecondsSinceEpoch,
                     type: transactionType,
+                    comment: commentController.text.trim(),
                     amount: convertAmount, deviseId: ref.read(mainDevise).key);
 
                 String error = await ref.read(transController).addTransaction(t);

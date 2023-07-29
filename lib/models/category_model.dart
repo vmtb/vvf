@@ -1,3 +1,5 @@
+import '../controllers/category_controller.dart';
+
 class Category{
   String nom;
   int iconData;
@@ -120,6 +122,10 @@ class Category{
       colorA: map['colorA'] as int,
       colorB: map['colorB'] as int,
     );
+  }
+
+  static Category initial() {
+    return Category(nom: "", iconData: 57548, type: CatType.project.toString(), userId: "", key: "", time: 0, colorR: 0, colorG: 150, colorA: 255, colorB: 136);
   }
 
 //</editor-fold>

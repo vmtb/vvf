@@ -44,6 +44,25 @@ class CaisseController{
     await ref.read(catRef).doc(caisseId).set(c.toMap());
     return caisseId;
   }
+
+  Future<List<Caisse>> getUserCaissesFuture() async {
+    List<Caisse> cats = [];
+    await ref
+        .read(caisseRef)
+        .where("userId", isEqualTo: ref.read(me).userId)
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        var c = Caisse.fromMap(element.data() as Map<String, dynamic>)
+            .copyWith(key: element.id);
+        cats.add(c);
+      });
+    });
+    var c1 = cats.where((element) => element.type.isEmpty).toList();
+    var c2 = cats.where((element) => element.type == CaisseType.main.toString()).toList();
+    c2.addAll(c1);
+    return c2;
+  }
 }
 
 enum CaisseType{

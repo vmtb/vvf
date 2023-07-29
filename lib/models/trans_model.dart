@@ -7,6 +7,7 @@ class Trans{
   int type;
   double amount;
   String deviseId;
+  String comment;
 
 //<editor-fold desc="Data Methods">
 
@@ -19,6 +20,7 @@ class Trans{
     required this.type,
     required this.amount,
     required this.deviseId,
+    required this.comment,
   });
 
   @override
@@ -33,7 +35,8 @@ class Trans{
           time == other.time &&
           type == other.type &&
           amount == other.amount &&
-          deviseId == other.deviseId);
+          deviseId == other.deviseId &&
+          comment == other.comment);
 
   @override
   int get hashCode =>
@@ -44,7 +47,8 @@ class Trans{
       time.hashCode ^
       type.hashCode ^
       amount.hashCode ^
-      deviseId.hashCode;
+      deviseId.hashCode ^
+      comment.hashCode;
 
   @override
   String toString() {
@@ -57,6 +61,7 @@ class Trans{
         ' type: $type,' +
         ' amount: $amount,' +
         ' deviseId: $deviseId,' +
+        ' comment: $comment,' +
         '}';
   }
 
@@ -69,6 +74,7 @@ class Trans{
     int? type,
     double? amount,
     String? deviseId,
+    String? comment,
   }) {
     return Trans(
       key: key ?? this.key,
@@ -79,6 +85,7 @@ class Trans{
       type: type ?? this.type,
       amount: amount ?? this.amount,
       deviseId: deviseId ?? this.deviseId,
+      comment: comment ?? this.comment,
     );
   }
 
@@ -92,6 +99,7 @@ class Trans{
       'type': this.type,
       'amount': this.amount,
       'deviseId': this.deviseId,
+      'comment': this.comment,
     };
   }
 
@@ -105,6 +113,7 @@ class Trans{
       type: map['type'] as int,
       amount: map['amount'] as double,
       deviseId: map['deviseId'] as String,
+      comment: map['comment']??"",
     );
   }
 

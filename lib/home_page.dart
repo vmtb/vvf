@@ -40,7 +40,6 @@ class _HomePageState extends ConsumerState<HomePage> with SingleTickerProviderSt
   var format = DateFormat("E, dd MMM yyyy");
 
   int currentPeriodType = 0;
-
   bool firstTime = true;
 
   @override
@@ -179,7 +178,7 @@ class _HomePageState extends ConsumerState<HomePage> with SingleTickerProviderSt
             ),
           )
       );
-    }, error: errorLoading, loading: loadingError)
+      }, error: errorLoading, loading: loadingError)
     );
 
 
@@ -393,8 +392,6 @@ class _HomePageState extends ConsumerState<HomePage> with SingleTickerProviderSt
     currentPeriodType = index;
     setState(() {});
   }
-
-
   void addDate(int i) {
     if (currentPeriodType==0) {
       currentDate = currentDate.add(Duration(days: i));
@@ -409,8 +406,6 @@ class _HomePageState extends ConsumerState<HomePage> with SingleTickerProviderSt
 
     setState(() {});
   }
-
-
   String getTextPeriod() {
     String text = "";
     if (currentPeriodType==0) {
@@ -426,7 +421,6 @@ class _HomePageState extends ConsumerState<HomePage> with SingleTickerProviderSt
     }
     return text;
   }
-
   void selectDate() {
     showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(2020),
         lastDate: DateTime.now().add(const Duration(days: 10*365))).then((value){
@@ -436,7 +430,6 @@ class _HomePageState extends ConsumerState<HomePage> with SingleTickerProviderSt
       }
     });
   }
-
   void selectRangeDate(){
     showDateRangePicker(context: context, firstDate: DateTime(2020), lastDate: DateTime.now().add(Duration(days: 30*36))).then((value){
       if(value==null){
@@ -448,7 +441,6 @@ class _HomePageState extends ConsumerState<HomePage> with SingleTickerProviderSt
       }
     });
   }
-
   updateGraphInfos() async {
 
     if (currentPeriodType==0) {
