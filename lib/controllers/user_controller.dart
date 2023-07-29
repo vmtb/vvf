@@ -26,16 +26,20 @@ class UserController{
   setupUser() async {
     UserModel user = await getCurrentUser();
     ref.read(me.notifier).state = user;
-    var dvs = ref.read(devisesList).where((element) => element.key==ref.read(me).deviseId).toList();
+    var dvs = ref.read(devisesList).where((element) => element.key==user.deviseId).toList();
     ref.read(userDevise.notifier).state = dvs.isNotEmpty?dvs.first:Devise.initial();
     log(ref.read(userDevise));
   }
 
   getCurrentUser() async {
     UserModel user = UserModel.initial();
-    await ref.read(userRef).doc(ref.read(mAuth).currentUser!.uid).get().then((e){
-      user = UserModel.fromMap(e.data() as Map<String, dynamic>);
-    });
+    try {
+      await ref.read(userRef).doc(ref.read(mAuth).currentUser!.uid).get().then((e){
+        user = UserModel.fromMap(e.data() as Map<String, dynamic>);
+      });
+    } catch (e) {
+      print(e);
+    }
     return user;
   }
 

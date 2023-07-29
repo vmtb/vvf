@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -5,9 +6,12 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:vvf/controllers/project_controller.dart';
 import 'package:vvf/models/user_model.dart';
 import 'package:vvf/utils/providers.dart';
 
+import 'caisse_controller.dart';
+import 'category_controller.dart';
 import 'devise_controller.dart';
 
 final getUserId = StateProvider((ref) => ref.read(mAuth).currentUser!.uid);
@@ -31,7 +35,8 @@ class AuthController {
           fcm: await getFcm(),
       );
       await ref.read(userController).saveUser(user);
-      setupRegisterUserInfo();
+      await setupRegisterUserInfo();
+      refreshThings();
     } catch (e) {
       print(e);
       error = e.toString();
@@ -47,6 +52,7 @@ class AuthController {
           .signInWithEmailAndPassword(email: email, password: password)
           .then((value) {});
       await ref.read(userController).setupUser();
+      refreshThings();
     } catch (e) {
       print(e);
       error = e.toString();
@@ -118,20 +124,29 @@ class AuthController {
       user.email = email;
     }
     user.fcm = await getFcm();
-    if(user.userId.isEmpty){
+    if(user.deviseId.isEmpty){
       user.deviseId =  ref.read(mainDevise).key;
-      setupRegisterUserInfo();
+    }
+    if(user.userId.isEmpty){
+      await setupRegisterUserInfo();
     }
     user.userId = ref.read(mAuth).currentUser!.uid;
     await ref.read(userController).updateUser(user);
     await ref.read(userController).setupUser();
 
+    refreshThings();
   }
 
   Future<void> setupRegisterUserInfo() async {
     await ref.read(userController).setupUser();
     await ref.read(catController).setupCategory(ref.read(mAuth).currentUser!.uid);
     String caisseId= await ref.read(caisseController).setupCaisse(ref.read(mAuth).currentUser!.uid);
+  }
+
+  void refreshThings() {
+    ref.refresh(getUserProject);
+    ref.refresh(getMyCaisses);
+    ref.refresh(getAllCats);
   }
 
 }

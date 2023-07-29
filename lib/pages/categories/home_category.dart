@@ -57,7 +57,7 @@ class _HomeCategoryState extends ConsumerState<HomeCategory>
 
   @override
   Widget build(BuildContext context) {
-    double hCard = 0.55 * getSize(context).height;
+    double hCard = 0.5 * getSize(context).height;
 
     return Scaffold(
         body:    ref.watch(getAllCats).when(data: (data){
@@ -86,7 +86,7 @@ class _HomeCategoryState extends ConsumerState<HomeCategory>
                       future: ref.read(transController).getUserTransactionRange(minDate.millisecondsSinceEpoch, maxDate.millisecondsSinceEpoch),
                       builder: (context, snap) {
                         if(!snap.hasData){
-                          return const CupertinoActivityIndicator();
+                          return Center(child: const CupertinoActivityIndicator());
                         }
                         trans = snap.data!;
                         var transCat = trans.where((element) => element.catId==cats[currentCatIndex].key && element.type==0).toList();
@@ -302,7 +302,7 @@ class _HomeCategoryState extends ConsumerState<HomeCategory>
           Row(
             children: [
               const AppText("Plus de dépense: ", weight: FontWeight.bold, color: AppColor.caisseColor,),
-              AppText(c.nom+" (" +montant.toStringAsFixed(2)+" "+ref.read(userDevise).symbol+")"),
+              Flexible(child: AppText("${c.nom} (${montant.toStringAsFixed(2)} ${ref.read(userDevise).symbol})", maxLines: 1, overflow: TextOverflow.ellipsis,)),
             ],
           ),
         ],

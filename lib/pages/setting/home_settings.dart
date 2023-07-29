@@ -55,7 +55,7 @@ class _HomeSettingState extends ConsumerState<HomeSetting> {
               ListTile(
                 leading: const Icon(Icons.monetization_on),
                 title: const AppText("Votre devise"),
-                subtitle: AppText("${ref.read(userDevise).name} (${ref.watch(userDevise).symbol}) -- Changer"),
+                subtitle: AppText("${ref.watch(userDevise).name} (${ref.watch(userDevise).symbol}) -- Changer"),
                 onTap: () {
                   showChangeDevisesDialog();
                 },
@@ -78,7 +78,7 @@ class _HomeSettingState extends ConsumerState<HomeSetting> {
                   } else {
                     store = await ref.read(mainController).getSetting("app_store");
                   }
-                  Share.share("$url\n\nTéléchargez VV Finance $store}");
+                  Share.share("$url\n\nTéléchargez VV Finance $store");
                 },
                 leading: const Icon(Icons.share),
                 title: const AppText("Partager VV Finance"),
@@ -140,6 +140,7 @@ class _HomeSettingState extends ConsumerState<HomeSetting> {
 
   void showChangeDevisesDialog() {
     String userDeviceKey = ref.read(userDevise).key;
+    log(userDeviceKey);
     showDialog(
         context: context,
         builder: (context) {

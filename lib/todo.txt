@@ -1,0 +1,3 @@
+- .doc() au niveau de setup Caisse
+- caisseRef au niveau de caisse
+- refreshThing in auth_controller

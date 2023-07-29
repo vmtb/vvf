@@ -5,6 +5,10 @@ import 'package:form_validator/form_validator.dart';
 import 'package:vvf/components/app_button.dart';
 import 'package:vvf/components/app_input.dart';
 import 'package:vvf/components/app_text.dart';
+import 'package:vvf/controllers/caisse_controller.dart';
+import 'package:vvf/controllers/category_controller.dart';
+import 'package:vvf/controllers/devise_controller.dart';
+import 'package:vvf/controllers/project_controller.dart';
 import 'package:vvf/pages/auth/register_page.dart';
 import 'package:vvf/utils/app_func.dart';
 

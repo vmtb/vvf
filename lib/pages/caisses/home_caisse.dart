@@ -194,31 +194,34 @@ class _HomeCaisseState extends ConsumerState<HomeCaisse>
                           BoxShadow(
                               color: Colors.black.withOpacity(0.1), blurRadius: 1)
                         ]),
-                    child:Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        //List des caisse
-                        for(var i=0; i<caisses.length; i++)
-                          buildCaisse(caisses[i], i),
-                        InkWell(
-                          onTap: () {
-                            navigateToWidget(context, const AddCaisse());
-                          },
-                          child: Container(
-                            height: 110,
-                            width: 110,
-                            margin: const EdgeInsets.symmetric(horizontal: 10),
-                            decoration: BoxDecoration(
-                                border: Border.all(color: AppColor.caisseColor),
-                                borderRadius: BorderRadius.circular(20)),
-                            child: const Icon(
-                              Icons.add_circle_rounded,
-                              size: 40,
-                              color: AppColor.catgColor,
+                    child:SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          //List des caisse
+                          for(var i=0; i<caisses.length; i++)
+                            buildCaisse(caisses[i], i),
+                          InkWell(
+                            onTap: () {
+                              navigateToWidget(context, const AddCaisse());
+                            },
+                            child: Container(
+                              height: 110,
+                              width: 110,
+                              margin: const EdgeInsets.symmetric(horizontal: 10),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: AppColor.caisseColor),
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: const Icon(
+                                Icons.add_circle_rounded,
+                                size: 40,
+                                color: AppColor.catgColor,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     )
                   ),
 
