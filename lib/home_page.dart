@@ -110,10 +110,12 @@ class _HomePageState extends ConsumerState<HomePage> with SingleTickerProviderSt
               centerTitle: true,
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showSnackbar(context, "");
+                  },
                   icon: const Icon(
-                    Icons.account_circle_rounded,
-                    size: 40,
+                    Icons.local_offer,
+                    size: 30
                   ),
                 ),
                 const SizedBox(
