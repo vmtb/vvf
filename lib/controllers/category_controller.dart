@@ -73,7 +73,7 @@ class CategoryController {
     List<Category> cats = [
       Category(nom: "Cuisine", iconData: 58256, type: "", userId: userId, key: "", time: time, colorR: 76, colorG: 175, colorA: 255, colorB: 80),
       Category(nom: "Projet", iconData: 57548, type: CatType.project.toString(), userId: userId, key: "", time: time, colorR: 0, colorG: 150, colorA: 255, colorB: 136),
-      Category(nom: "Sante", iconData: 58117, type: "", userId: userId, key: "", time: time, colorR: 233, colorG: 30, colorA: 255, colorB: 99),
+      Category(nom: "Santé", iconData: 58117, type: "", userId: userId, key: "", time: time, colorR: 233, colorG: 30, colorA: 255, colorB: 99),
       Category(nom: "Sport", iconData: 58859, type: "", userId: userId, key: "", time: time, colorR: 0, colorG: 150, colorA: 255, colorB: 136),
       Category(nom: "Transport", iconData: 59613, type: "", userId: userId, key: "", time: time, colorR: 103, colorG: 58, colorA: 255, colorB: 183),
       Category(nom: "Vestimentaires", iconData: 984410, type: "", userId: userId, key: "", time: time, colorR: 121, colorG: 85, colorA: 255, colorB: 72),
