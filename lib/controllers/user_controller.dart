@@ -21,14 +21,14 @@ class UserController{
   updateUser(UserModel user) async {
     await ref.read(userRef).doc(user.userId).set(user.toMap());
     await setupUser();
-    var dvs = ref.read(devisesList).where((element) => element.key==ref.read(me).deviseId).toList();
-    ref.read(userDevise.notifier).state = dvs.isNotEmpty?dvs.first:Devise.initial();
-    log(ref.read(userDevise));
   }
 
   setupUser() async {
     UserModel user = await getCurrentUser();
     ref.read(me.notifier).state = user;
+    var dvs = ref.read(devisesList).where((element) => element.key==ref.read(me).deviseId).toList();
+    ref.read(userDevise.notifier).state = dvs.isNotEmpty?dvs.first:Devise.initial();
+    log(ref.read(userDevise));
   }
 
   getCurrentUser() async {

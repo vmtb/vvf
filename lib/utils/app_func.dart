@@ -118,3 +118,24 @@ Widget errorLoading(e, stack){
 Widget loadingError(){
   return const CupertinoActivityIndicator();
 }
+
+DateTime getFirstDayOfWeek(DateTime date) {
+  date = DateTime(date.year, date.month, date.day);
+  int weekDay = date.weekday;
+  return date.subtract(Duration(days: weekDay - 1));
+}
+DateTime getFirstDayOfMonth(DateTime date) {
+  return DateTime(date.year, date.month, 1);
+}
+DateTime getLastDayOfWeek(DateTime date) {
+  date = DateTime(date.year, date.month, date.day);
+  int weekDay = date.weekday;
+  return date.add(Duration(days: DateTime.daysPerWeek - weekDay));
+}
+DateTime getLastDayOfMonth(DateTime date) {
+  int lastDayOfMonth = DateTime(date.year, date.month + 1, 0).day;
+  return DateTime(date.year, date.month, lastDayOfMonth);
+}
+DateTime getLastDayOfYear(DateTime date) {
+  return DateTime(date.year + 1, 1, 0);
+}

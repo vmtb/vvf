@@ -44,6 +44,30 @@ class CategoryController {
     });
   }
 
+  Future<List<Category>> getUserCategoriesFuture() async  {
+    List<Category> cats = [];
+    await ref
+        .read(catRef)
+        .where("userId", isEqualTo: ref.read(me).userId)
+        .get()
+        .then((value) {
+      for (var element in value.docs) {
+        var c = Category.fromMap(element.data() as Map<String, dynamic>)
+            .copyWith(key: element.id);
+        cats.add(c);
+        log(c);
+      }
+    });
+
+    var c1 = cats.where((element) => element.type.isEmpty).toList();
+    var c2 = cats.where((element) => element.type == CatType.project.toString()).toList();
+    var c3 = cats.where((element) => element.type == CatType.other.toString()).toList();
+    c1.addAll(c2);
+    c1.addAll(c3);
+    return c1;
+
+  }
+
   setupCategory(String userId) async {
     int time = DateTime.now().millisecondsSinceEpoch;
     List<Category> cats = [
@@ -65,6 +89,7 @@ class CategoryController {
     });
     await batch.commit();
   }
+
 
 
 

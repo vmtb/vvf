@@ -40,7 +40,7 @@ class CaisseController{
 
   Future<String> setupCaisse(String userId) async {
     String caisseId = ref.read(caisseRef).id;
-    Caisse c = Caisse(name: "Principale", type: CaisseType.main.toString(), time: DateTime.now().millisecondsSinceEpoch, userId: userId, key: caisseId);
+    Caisse c = Caisse(name: "Principale", solde: 0, type: CaisseType.main.toString(), time: DateTime.now().millisecondsSinceEpoch, userId: userId, key: caisseId);
     await ref.read(catRef).doc(caisseId).set(c.toMap());
     return caisseId;
   }

@@ -36,6 +36,7 @@ dependencies:
   fl_chart:
   flutter_colorpicker:
   flutter_iconpicker_plus:
+  carousel_slider:
 
 dev_dependencies:
   flutter_test:

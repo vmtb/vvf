@@ -63,7 +63,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
   }
 
   void setupTimer() {
-    Future.delayed(const Duration(milliseconds: 500), () async {
+    Future.delayed(const Duration(milliseconds: 100), () async {
       //  bool homeP = PreferenceHelper.getBool("home");
       //
       // String? token = await ref.read(firebaseMessaging).getToken();

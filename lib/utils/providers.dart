@@ -9,6 +9,7 @@ import 'package:vvf/controllers/caisse_controller.dart';
 import 'package:vvf/controllers/category_controller.dart';
 import 'package:vvf/controllers/devise_controller.dart';
 import 'package:vvf/controllers/task_controller.dart';
+import 'package:vvf/controllers/trans_controller.dart';
 import 'package:vvf/controllers/user_controller.dart';
 
 import '../controllers/auth_controller.dart';
@@ -22,6 +23,7 @@ final userRef = Provider<CollectionReference>((ref) => getFirestore().collection
 final catRef = Provider <CollectionReference>((ref) => getFirestore().collection("Categories"));
 final caisseRef = Provider <CollectionReference>((ref) => getFirestore().collection("Caisses"));
 final deviseRef = Provider <CollectionReference>((ref) => getFirestore().collection("Devises"));
+final transRef = Provider <CollectionReference>((ref) => getFirestore().collection("Transactions"));
 
 
 final authController = Provider((ref) => AuthController(ref));
@@ -30,6 +32,7 @@ final userController = Provider((ref) => UserController(ref));
 final catController = Provider((ref) => CategoryController(ref));
 final caisseController = Provider((ref) => CaisseController(ref));
 final deviseController = Provider((ref) => DeviseController(ref));
+final transController = Provider((ref) => TransController(ref));
 
 
 FirebaseFirestore getFirestore(){

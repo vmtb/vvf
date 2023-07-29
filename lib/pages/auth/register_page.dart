@@ -81,7 +81,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                           ? const Icon(Icons.remove_red_eye)
                           : const Icon(Icons.password_outlined)),
                   hintText: "Mot de passe",),
-                SpacerHeight(),
+                const SpacerHeight(),
 
                 SimpleFilledFormField(
                   controller: cpasswordController,
@@ -93,7 +93,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                   }),
                   radius: 10,
                   obscure: hidePassword,
-                  suffixI: IconButton(
+                    suffixI: IconButton(
                       onPressed: () {
                         hidePassword = !hidePassword;
                         log(hidePassword);

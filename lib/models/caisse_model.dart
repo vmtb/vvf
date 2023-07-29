@@ -4,6 +4,7 @@ class Caisse{
   int time;
   String userId;
   String key;
+  double solde;
 
 //<editor-fold desc="Data Methods">
 
@@ -13,6 +14,7 @@ class Caisse{
     required this.time,
     required this.userId,
     required this.key,
+    required this.solde,
   });
 
   @override
@@ -24,7 +26,8 @@ class Caisse{
           type == other.type &&
           time == other.time &&
           userId == other.userId &&
-          key == other.key);
+          key == other.key &&
+          solde == other.solde);
 
   @override
   int get hashCode =>
@@ -32,7 +35,8 @@ class Caisse{
       type.hashCode ^
       time.hashCode ^
       userId.hashCode ^
-      key.hashCode;
+      key.hashCode ^
+      solde.hashCode;
 
   @override
   String toString() {
@@ -42,6 +46,7 @@ class Caisse{
         ' time: $time,' +
         ' userId: $userId,' +
         ' key: $key,' +
+        ' solde: $solde,' +
         '}';
   }
 
@@ -51,6 +56,7 @@ class Caisse{
     int? time,
     String? userId,
     String? key,
+    double? solde,
   }) {
     return Caisse(
       name: name ?? this.name,
@@ -58,6 +64,7 @@ class Caisse{
       time: time ?? this.time,
       userId: userId ?? this.userId,
       key: key ?? this.key,
+      solde: solde ?? this.solde,
     );
   }
 
@@ -68,6 +75,7 @@ class Caisse{
       'time': this.time,
       'userId': this.userId,
       'key': this.key,
+      'solde': this.solde,
     };
   }
 
@@ -78,6 +86,7 @@ class Caisse{
       time: map['time'] as int,
       userId: map['userId'] as String,
       key: map['key'] as String,
+      solde: double.parse(map['solde'].toString()),
     );
   }
 

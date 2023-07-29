@@ -60,7 +60,7 @@ class _AddCaisseState extends ConsumerState<AddCaisse> {
                     isLoading = true;
                   });
 
-                  Caisse c = Caisse(name: nameController.text.trim(), type: "", time: DateTime.now().millisecondsSinceEpoch, userId: ref.read(me).userId, key: "");
+                  Caisse c = Caisse(name: nameController.text.trim(), solde: 0, type: "", time: DateTime.now().millisecondsSinceEpoch, userId: ref.read(me).userId, key: "");
                   String error =  await ref.read(caisseController).addCaisse(c);
 
                   setState(() {

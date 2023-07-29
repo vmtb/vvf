@@ -27,7 +27,7 @@ class DeviseController{
     });
     ref.read(devisesList.notifier).state = devises;
     var dvs = ref.read(devisesList).where((element) => element.type=="main").toList();
-    ref.read(mainDevise.notifier).state = dvs.isNotEmpty?devises.first:Devise.initial();
+    ref.read(mainDevise.notifier).state = dvs.isNotEmpty?dvs.first:Devise.initial();
     return devises;
   }
 }
