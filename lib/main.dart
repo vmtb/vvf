@@ -6,6 +6,7 @@ import 'package:vvf/utils/app_const.dart';
 import 'package:vvf/utils/app_pref.dart';
 import 'package:vvf/utils/app_styles.dart';
 
+import 'pages/auth/login_page.dart';
 import 'utils/config.dart';
 
 Future<void> main() async {
@@ -31,8 +32,11 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
-      title: 'Test Project',
+      title: 'VV Finance',
       debugShowCheckedModeBanner: false,
+      routes: {
+        '/login': (context) => LoginPage(),
+      },
       theme: ThemeData(
         primarySwatch: customPrimaryColor,
       ),

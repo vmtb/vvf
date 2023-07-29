@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:vvf/components/app_text.dart';
+import 'package:vvf/utils/providers.dart';
+
+import '../components/app_button.dart';
 
 Size getSize(BuildContext context) {
   return MediaQuery.of(context).size;
@@ -139,3 +143,70 @@ DateTime getLastDayOfMonth(DateTime date) {
 DateTime getLastDayOfYear(DateTime date) {
   return DateTime(date.year + 1, 1, 0);
 }
+
+
+void showLogoutDialog(WidgetRef ref, BuildContext context) {
+  showDialog(context: context, builder: (context){
+    return AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      content: SizedBox(
+        height: 200,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            const AppText("Voulez-vous vraiment vous déconnecter?", size: 18, align: TextAlign.center,),
+            AppButtonRound(text: "Non, annuler", onTap: (){
+              Navigator.pop(context);
+            }),
+            TextButton(onPressed: () async {
+              await ref.read(mAuth).signOut();
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                '/login',
+                    (route) => false, // This will remove all previous routes
+              );
+            }, child: const Text("Continuer la déconnexion", style: TextStyle(
+                decoration: TextDecoration.underline,
+                fontSize: 18
+            ),))
+          ],
+        ),
+      ),
+    );
+  });
+}
+
+
+void showDeleteAccount(WidgetRef ref, BuildContext context) {
+  showDialog(context: context, builder: (context){
+    return AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      content: SizedBox(
+        height: 200,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            const AppText("Voulez-vous vraiment supprimer votre compte? Elle est irréversible..", size: 18, align: TextAlign.center,),
+            AppButtonRound(text: "Non, annuler", onTap: (){
+              Navigator.pop(context);
+            }),
+            TextButton(onPressed: () async {
+              await ref.read(userController).deleteUser();
+              await ref.read(mAuth).signOut();
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                '/login',
+                    (route) => false, // This will remove all previous routes
+              );
+            }, child: const Text("Continuer la déconnexion", style: TextStyle(
+                decoration: TextDecoration.underline,
+                fontSize: 18
+            ),))
+          ],
+        ),
+      ),
+    );
+  });
+}
+
+

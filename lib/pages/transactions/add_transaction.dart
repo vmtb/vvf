@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:vvf/components/app_button.dart';
+import 'package:vvf/controllers/category_controller.dart';
 import 'package:vvf/controllers/devise_controller.dart';
 import 'package:vvf/controllers/trans_controller.dart';
 import 'package:vvf/controllers/user_controller.dart';
@@ -12,6 +13,7 @@ import 'package:vvf/utils/providers.dart';
 
 import '../../components/app_text.dart';
 import '../../models/category_model.dart';
+import '../../models/project_model.dart';
 import '../../utils/app_const.dart';
 import '../../utils/app_func.dart';
 
@@ -37,10 +39,14 @@ class _AddTransactionState extends ConsumerState<AddTransaction> {
 
   bool isLoading =false;
 
+  List<Project> userProjects = [];
+  var selectedProjet;
+  bool isProjectCategory = false;
   @override
   void initState() {
     super.initState();
     getAllCategs();
+    getAllProjects();
   }
 
   @override
@@ -160,6 +166,10 @@ class _AddTransactionState extends ConsumerState<AddTransaction> {
               children: cats.map((e) => SingleCat(e)).toList(),
             ),
 
+            //Projets
+            if(isProjectCategory && transactionType==0)
+            buildDropDrownProject(),
+
             //Commentaire
             Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -183,6 +193,14 @@ class _AddTransactionState extends ConsumerState<AddTransaction> {
                   showSnackbar(context, "Veuillez choisir la catégorie");
                   return;
                 }
+                //Controler
+                if(isProjectCategory && transactionType==0 && selectedProjet==null){
+                  showSnackbar(context, "Veuillez choisir le projet");
+                  return;
+                }
+                if(!isProjectCategory || transactionType==1){
+                  selectedProjet = null;
+                }
                 //y, m, day, hh,m,ss
                 //
                 DateTime datew = DateTime(currentDate.year, currentDate.month, currentDate.day);
@@ -196,9 +214,10 @@ class _AddTransactionState extends ConsumerState<AddTransaction> {
                     time: datew.millisecondsSinceEpoch,
                     type: transactionType,
                     comment: commentController.text.trim(),
+                    projectId: selectedProjet ?? "",
                     amount: convertAmount, deviseId: ref.read(mainDevise).key);
 
-                String error = await ref.read(transController).addTransaction(t);
+                String error = await ref.read(transController).addTransaction(t, selectedProjet);
 
                 setState(() {
                   isLoading = false;
@@ -217,7 +236,8 @@ class _AddTransactionState extends ConsumerState<AddTransaction> {
 
 
               }, isLoading: isLoading,),
-            )
+            ),
+            const SpacerHeight(height: 30,),
           ],
         ),
       ),
@@ -229,6 +249,7 @@ class _AddTransactionState extends ConsumerState<AddTransaction> {
     return InkWell(
       onTap: (){
         selectedCatKey = e.key;
+        isProjectCategory  = e.type==CatType.project.toString();
         setState(() {
 
         });
@@ -286,5 +307,29 @@ class _AddTransactionState extends ConsumerState<AddTransaction> {
   Future<void> getAllCategs() async {
     cats = await ref.read(catController).getUserCategoriesFuture();
     setState(() {});
+  }
+
+  Future<void> getAllProjects() async {
+    userProjects = await ref.read(projectController).getUserProjectLocal();
+    setState(() {});
+  }
+
+  buildDropDrownProject() {
+    return Container(margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      child: DropdownButtonFormField(
+          value: selectedProjet,
+          items: userProjects.map((e) => DropdownMenuItem(child: AppText(e.name), value: e.key,)).toList(),
+          onChanged: (e){
+            setState(() {
+              selectedProjet = e;
+            });
+          }, decoration: InputDecoration(
+        filled: true,
+        hintText: "Choisissez un projet",
+        fillColor: Colors.grey[150],
+        contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide.none),
+      ),),
+    );
   }
 }

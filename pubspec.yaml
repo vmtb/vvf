@@ -31,6 +31,9 @@ dependencies:
   shared_preferences:
   image_picker: ^0.8.4+2
   flutter_local_notifications: 9.8.0
+  url_launcher:
+  share_plus:
+  in_app_review:
   intl:
 
   fl_chart:

@@ -71,8 +71,10 @@ class SimpleFilledFormField extends StatelessWidget {
   final int? minLines;
   final int? maxLines;
   final double? radius;
+  final bool enable;
   final TextInputType inputType;
   final TextInputAction inputAction;
+  final TextStyle? style;
   final Function(String)? onChanged;
 
   const SimpleFilledFormField(
@@ -88,6 +90,8 @@ class SimpleFilledFormField extends StatelessWidget {
         this.minLines,
         this.radius=10,
         this.maxLines=1,
+        this.enable = true,
+        this.style,
         this.inputType=TextInputType.text,
         this.inputAction=TextInputAction.next,
         this.onChanged});
@@ -100,8 +104,10 @@ class SimpleFilledFormField extends StatelessWidget {
       textInputAction: inputAction,
       keyboardType: inputType,
       minLines: minLines,
+      style: style,
       maxLines: maxLines,
       obscureText: obscure,
+      enabled: enable,
       controller: controller,
       validator: validation == null ? null : validation!.build(),
       decoration: InputDecoration(

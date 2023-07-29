@@ -39,5 +39,16 @@ class UserController{
     return user;
   }
 
+  deleteUser() async {
+    try {
+      await ref.read(mAuth).currentUser!.delete();
+    } catch (e) {
+      print(e);
+    }
+    await ref.read(userRef).doc(ref.read(me).userId).delete();
+    //delete transactions etc..
+
+  }
+
 
 }

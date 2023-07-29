@@ -18,6 +18,7 @@ import 'package:vvf/utils/providers.dart';
 
 import 'controllers/trans_controller.dart';
 import 'models/caisse_model.dart';
+import 'pages/projet/home_project.dart';
 import 'pages/transactions/add_transaction.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -51,134 +52,157 @@ class _HomePageState extends ConsumerState<HomePage> with SingleTickerProviderSt
       changePeriode(controller.index);
     });
   }
+  Future<bool> _onWillPop(BuildContext context) async {
+    return await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Confirmation'),
+        content: const Text("Êtes-vous sûr de vouloir quitter VV Finance?"),
+        actions:  [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Non'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Oui'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double hCard = 0.58 * getSize(context).height;
     // 18000
     var menus = [
       ["salary.png", "Caisses", AppColor.caisseColor, const HomeCaisse()],
-      ["planning.png", "Projets", AppColor.projecColor, Container()],
+      ["planning.png", "Projets", AppColor.projecColor, const HomeProject()],
       ["categories.png", "Catégories", AppColor.catgColor, const HomeCategory()],
       ["setting.png", "Paramètres", AppColor.settingColor, const HomeSetting()],
     ];
-    return Scaffold(
-      body:    ref.watch(getMyCaisses).when(data: (data){
-      caisses = data;
-      updateGraphInfos();
-      return Scaffold(
-          appBar: AppBar(
-            elevation: 0,
-            leading: CircleAvatar(
-              backgroundColor: Colors.transparent,
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(40),
-                  child: const AppImage(
-                    url: "assets/img/logo.png",
-                    width: 35,
-                    fit: BoxFit.cover,
-                    height: 35,
-                  )),
-            ),
-            title: AppText(
-              "Solde caisse ${caisses.isNotEmpty?caisses[_currentCaisseIndex].name:""}",
-              color: AppColor.white,
-              size: 18,
-            ),
-            centerTitle: true,
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.account_circle_rounded,
-                  size: 40,
-                ),
+    return WillPopScope(
+      onWillPop: () => _onWillPop(context),
+      child: Scaffold(
+        body:    ref.watch(getMyCaisses).when(data: (data){
+        caisses = data;
+        updateGraphInfos();
+        return Scaffold(
+            appBar: AppBar(
+              elevation: 0,
+              leading: CircleAvatar(
+                backgroundColor: Colors.transparent,
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(40),
+                    child: const AppImage(
+                      url: "assets/img/logo.png",
+                      width: 35,
+                      fit: BoxFit.cover,
+                      height: 35,
+                    )),
               ),
-              const SizedBox(
-                width: 10,
+              title: AppText(
+                "Solde caisse ${caisses.isNotEmpty?caisses[_currentCaisseIndex].name:""}",
+                color: AppColor.white,
+                size: 18,
               ),
-            ],
-          ),
-          body: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Histogram of caisse
-                Container(
-                  width: getSize(context).width,
-                  height: hCard - 40,
-                  child: Stack(
-                    children: [
-                      Container(
-                        width: getSize(context).width,
-                        height: 100,
-                        decoration: const BoxDecoration(
-                            color: AppColor.primary,
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(40),
-                              bottomRight: Radius.circular(40),
-                            )),
-                      ),
-                      Positioned(
-                        left: 0,
-                        right: 0,
-                        child: Column(
-                          children: [
-                            AppText(
-                              "${(caisses[_currentCaisseIndex].solde/ref.watch(userDevise).rate).toStringAsFixed(2)} ${ref.watch(userDevise).symbol}",
-                              color: Colors.white,
-                              size: 35,
-                              weight: FontWeight.bold,
-                            ),
-                            const SpacerHeight(),
-                            Container(
-                              height: hCard - 100,
-                              width: getSize(context).width,
-                              margin: const EdgeInsets.symmetric(horizontal: 20),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black.withOpacity(0.1),
-                                        blurRadius: 1)
-                                  ]),
-                              child: buildHistograms(),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
+              centerTitle: true,
+              actions: [
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.account_circle_rounded,
+                    size: 40,
                   ),
                 ),
-
-                //Menus
-                Container(
-                  width: getSize(context).width,
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  child: GridView.count(
-                    crossAxisCount: 2,
-                    shrinkWrap: true,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    physics: const NeverScrollableScrollPhysics(),
-                    // alignment: WrapAlignment,
-                    children: menus.map((e) => buildMenu(e)).toList(),
-                  ),
-                ),
-
-                //Version
-                const SpacerHeight(
-                  height: 40,
-                ),
-                const Center(child: AppText("Version 1.0")),
-                const SpacerHeight(
-                  height: 40,
+                const SizedBox(
+                  width: 10,
                 ),
               ],
             ),
-          )
-      );
-      }, error: errorLoading, loading: loadingError)
+            body: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Histogram of caisse
+                  Container(
+                    width: getSize(context).width,
+                    height: hCard - 40,
+                    child: Stack(
+                      children: [
+                        Container(
+                          width: getSize(context).width,
+                          height: 100,
+                          decoration: const BoxDecoration(
+                              color: AppColor.primary,
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(40),
+                                bottomRight: Radius.circular(40),
+                              )),
+                        ),
+                        Positioned(
+                          left: 0,
+                          right: 0,
+                          child: Column(
+                            children: [
+                              AppText(
+                                "${(caisses[_currentCaisseIndex].solde/ref.watch(userDevise).rate).toStringAsFixed(2)} ${ref.watch(userDevise).symbol}",
+                                color: Colors.white,
+                                size: 35,
+                                weight: FontWeight.bold,
+                              ),
+                              const SpacerHeight(),
+                              Container(
+                                height: hCard - 100,
+                                width: getSize(context).width,
+                                margin: const EdgeInsets.symmetric(horizontal: 20),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.black.withOpacity(0.1),
+                                          blurRadius: 1)
+                                    ]),
+                                child: buildHistograms(),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+
+                  //Menus
+                  Container(
+                    width: getSize(context).width,
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    child: GridView.count(
+                      crossAxisCount: 2,
+                      shrinkWrap: true,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      physics: const NeverScrollableScrollPhysics(),
+                      // alignment: WrapAlignment,
+                      children: menus.map((e) => buildMenu(e)).toList(),
+                    ),
+                  ),
+
+                  //Version
+                  const SpacerHeight(
+                    height: 40,
+                  ),
+                  const Center(child: AppText("Version 1.0")),
+                  const SpacerHeight(
+                    height: 40,
+                  ),
+                ],
+              ),
+            )
+        );
+        }, error: errorLoading, loading: loadingError)
+      ),
     );
 
 
@@ -265,7 +289,7 @@ class _HomePageState extends ConsumerState<HomePage> with SingleTickerProviderSt
                   children: [
                     IconButton(onPressed: (){
                       addDate(-1);
-                    }, icon: Icon(Icons.arrow_back_ios, size: 16, )),
+                    }, icon: const Icon(Icons.arrow_back_ios, size: 16, )),
                     Expanded(
                       child: InkWell(
                           onTap: (){
@@ -279,7 +303,7 @@ class _HomePageState extends ConsumerState<HomePage> with SingleTickerProviderSt
                     ),
                     IconButton(onPressed: (){
                       addDate(1);
-                    }, icon: Icon(Icons.arrow_forward_ios_outlined,size: 16,  )),
+                    }, icon: const Icon(Icons.arrow_forward_ios_outlined,size: 16,  )),
                   ],
                 ),
               ),
@@ -341,13 +365,13 @@ class _HomePageState extends ConsumerState<HomePage> with SingleTickerProviderSt
               ),
               Row(
                 children: [
-                  AppText("Entrées: ", weight: FontWeight.bold, color: AppColor.caisseColor,),
+                  const AppText("Entrées: ", weight: FontWeight.bold, color: AppColor.caisseColor,),
                   AppText(ent.toStringAsFixed(2)+" "+ref.read(userDevise).symbol),
                 ],
               ),
               Row(
                 children: [
-                  AppText("Sortie: ", weight: FontWeight.bold, color: Colors.red,),
+                  const AppText("Sortie: ", weight: FontWeight.bold, color: Colors.red,),
                   AppText(sort.toStringAsFixed(2)+" "+ref.read(userDevise).symbol),
                 ],
               ),
@@ -431,7 +455,7 @@ class _HomePageState extends ConsumerState<HomePage> with SingleTickerProviderSt
     });
   }
   void selectRangeDate(){
-    showDateRangePicker(context: context, firstDate: DateTime(2020), lastDate: DateTime.now().add(Duration(days: 30*36))).then((value){
+    showDateRangePicker(context: context, firstDate: DateTime(2020), lastDate: DateTime.now().add(const Duration(days: 30*36))).then((value){
       if(value==null){
         controller.animateTo(0);
       }else{

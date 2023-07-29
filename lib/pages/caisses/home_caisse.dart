@@ -511,40 +511,64 @@ class _HomeCaisseState extends ConsumerState<HomeCaisse>
     Color catColor = Color.fromARGB(category.colorA, category.colorR, category.colorG, category.colorB);
     double solde = e.amount/ref.watch(userDevise).rate;
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 5),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 40,
-            height: 40,
-            child: CircleAvatar(
-              backgroundColor: catColor,
-              child: Icon(
-                IconData(
-                  category.iconData,
-                  fontFamily: "MaterialIcons",
+    return InkWell(
+      onTap: (){
+        showOptions(e);
+      },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 5),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 40,
+              height: 40,
+              child: CircleAvatar(
+                backgroundColor: catColor,
+                child: Icon(
+                  IconData(
+                    category.iconData,
+                    fontFamily: "MaterialIcons",
+                  ),
+                  color: Colors.white,
+                  size: 30,
                 ),
-                color: Colors.white,
-                size: 30,
               ),
             ),
-          ),
-          const SizedBox(width: 15,),
-          Expanded(child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AppText(category.nom, weight: FontWeight.bold, ),
-              AppText(e.comment.isEmpty?"Sans commentaire":e.comment, maxLines: 2, ),
-            ],
-          )),
-          const SizedBox(width: 15,),
-          AppText( "${e.type==0?"-":"+"}${solde.toStringAsFixed(1)} ${ref.read(userDevise).symbol}",
-          color: e.type==0?Colors.red:Colors.green,
-            weight: FontWeight.bold,
-          )
-        ],
+            const SizedBox(width: 15,),
+            Expanded(child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppText(category.nom, weight: FontWeight.bold, ),
+                AppText(e.comment.isEmpty?"Sans commentaire":e.comment, maxLines: 2, ),
+              ],
+            )),
+            const SizedBox(width: 15,),
+            AppText( "${e.type==0?"-":"+"}${solde.toStringAsFixed(1)} ${ref.read(userDevise).symbol}",
+            color: e.type==0?Colors.red:Colors.green,
+              weight: FontWeight.bold,
+            )
+          ],
+        ),
       ),
     );
+  }
+
+  void showOptions(Trans e) {
+
+    showDialog(context: context, builder: (context2){
+      return SimpleDialog(
+        title: AppText("Options", weight: FontWeight.bold,),
+        children: [
+          SimpleDialogOption(onPressed: (){
+            Navigator.pop(context2);
+            showConfirm(context, "Voulez-vous vraiment supprimer cette transaction?", () async {
+              Navigator.pop(context);
+              await ref.read(transController).deleteTrans(e);
+              setState(() {});
+            });
+          }, child: AppText("Supprimer"),),
+        ],
+      );
+    });
   }
 }
